@@ -10,9 +10,9 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage = MemoryStorage())
 all_users = set()
 
-@dp.message_handler((commands = ['start'], state="*"))
+@dp.message_handler(commands = ['start'])
 async def _(message: Message, state: FSMContext):
-    user_id= = message.from_user.id
+    user_id = message.from_user.id
     if user_id not in all_users:
         all_users.add(user_id)
     await state.update_data({"user_id": message.from_user.id})
