@@ -10,7 +10,11 @@ import os
 bot = Bot(token=TOKEN, parse_mode="HTML")
 dp = Dispatcher(bot, storage=MemoryStorage())  # Диспатчер
 admin_id = 5208563645
+
+
+button_delete = InlineKeyboardButton(text="Назад", callback_data="back_id")
 markup_delete = InlineKeyboardMarkup()
+markup_delete.add(button_delete)
 #
 #
 #
@@ -34,8 +38,8 @@ async def button(message: types.Message):
     button_rate = InlineKeyboardButton(text="Прайс-лист",
                                        url="https://docs.google.com/spreadsheets/d/1hqbRithEEBsBCVnOWXWAKvYNkkY4pMiTzIGCQxflW5g/edit#gid=901990233")
 
-    button_delete = InlineKeyboardButton(text="Назад", callback_data="back_id")
-    markup_delete.add(button_delete)
+    #button_delete = InlineKeyboardButton(text="Назад", callback_data="back_id")
+    #markup_delete.add(button_delete)
 
 
     button_feedback = InlineKeyboardButton(text="Обратная связь", callback_data="butt_id2")
@@ -69,8 +73,9 @@ async def to_query(call: types.callback_query):
 #
 @dp.callback_query_handler(lambda d: d.data == "butt_id3")
 async def to_help(call: types.callback_query):
-    await bot.send_message(call.message.chat.id, "Команды бота:\n /help - показывает все команды бота.\n /start - перезапускает бота.\n /info - узнать информацию о компании\n "
-                                                 "/availability - узнать о наличие товара на складе ", reply_markup = markup_delete)
+    await bot.send_message(call.message.chat.id, "Команды бота:\n /help - показывает все команды бота.\n /start - перезапускает бота.\n /info - узнать информацию о компании "
+                                                 , reply_markup = markup_delete)
+
 #
 #
 #
@@ -78,7 +83,6 @@ async def to_help(call: types.callback_query):
 async def to_info(call: types.callback_query):
     await bot.send_message(call.message.chat.id, "ВВП-бампер - компания основанная в 2020 году, за 3 года мы получили доверие множества довольных клиентов.\nНаши преимущества:\n " \
                                                              "⭐️Качественное обслуживание️\n ⭐️Лучшее качество деталей ️\n ⭐️Большой ассортимент\n ⭐️Быстрая скорость доставки️", reply_markup = markup_delete)
-
 
 @dp.callback_query_handler(lambda q: q.data == "back_id")
 async def to_delete(call: types.CallbackQuery):
